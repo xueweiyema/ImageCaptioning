@@ -12,7 +12,7 @@ import json
 
 def get_loader(transform,
                mode='train',
-               batch_size=1,
+               batch_size=10,
                vocab_threshold=None,
                vocab_file='./vocab.pkl',
                start_word="<start>",

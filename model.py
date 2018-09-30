@@ -49,7 +49,7 @@ class DecoderRNN(nn.Module):
             index=argmax[1].item()
             t.append(index)
             inputs=self.embed(argmax[1].long()).unsqueeeze(1)
-            # 1 representative <end>
+            # the integer 1 is always used to mark the end of a caption
             if index==1:
                 break
         return t
