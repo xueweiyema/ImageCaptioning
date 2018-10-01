@@ -26,7 +26,8 @@ class DecoderRNN(nn.Module):
         super(DecoderRNN,self).__init__()
         self.hidden_size=hidden_size
         self.embed=nn.Embedding(vocab_size,embed_size)
-        self.lstm=nn.LSTM(embed_size,hidden_size,num_layers,True)
+        self.lstm=nn.LSTM(embed_size,hidden_size,num_layers,batch_first =True)
+        self.softmax=nn.Softmax()
         self.fc=nn.Linear(hidden_size,vocab_size)
     
     def forward(self, features, captions):
@@ -48,7 +49,7 @@ class DecoderRNN(nn.Module):
             argmax=out.max(1)
             index=argmax[1].item()
             t.append(index)
-            inputs=self.embed(argmax[1].long()).unsqueeeze(1)
+            inputs=self.embed(argmax[1].long()).unsqueeze(1)
             # the integer 1 is always used to mark the end of a caption
             if index==1:
                 break
